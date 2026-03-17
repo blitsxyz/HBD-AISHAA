@@ -1,202 +1,220 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HBD Aishaaa 🎉</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HBD Aishaaa 🎉</title>
 
-<style>
-body{
-  margin:0;
-  font-family:sans-serif;
-  overflow:hidden;
-  color:white;
-  text-align:center;
-}
+  <style>
+    body {
+      margin:0;
+      font-family: sans-serif;
+      overflow: hidden;
+      color: white;
+      text-align: center;
+    }
 
-/* Background */
-.bg{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:url('gunung.jpg') no-repeat center/cover;
-  z-index:-2;
-}
+    /* Background */
+    .bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: url('gunung.jpg') no-repeat center/cover;
+      z-index: -2;
+    }
 
-.overlay{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.4);
-  z-index:-1;
-}
+    .overlay {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: -1;
+    }
 
-/* Bintang jatuh */
-.star{
-  position:absolute;
-  width:2px;
-  height:80px;
-  background:linear-gradient(white, transparent);
-  animation:jatuh 2s linear infinite;
-}
+    /* Bintang jatuh */
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 80px;
+      background: linear-gradient(white, transparent);
+      animation: jatuh 2s linear infinite;
+    }
 
-@keyframes jatuh{
-  from{transform:translateY(-100px); opacity:1;}
-  to{transform:translateY(600px) translateX(-200px); opacity:0;}
-}
+    @keyframes jatuh {
+      from { transform: translateY(-100px); opacity: 1; }
+      to { transform: translateY(600px) translateX(-200px); opacity: 0; }
+    }
 
-/* Page */
-.page{
-  display:none;
-  height:100vh;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-}
+    /* Page */
+    .page {
+      display: none;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
 
-.active{
-  display:flex;
-}
+    .active {
+      display: flex;
+    }
 
-/* Button */
-button{
-  padding:12px 25px;
-  border:none;
-  border-radius:20px;
-  background:#ff4d6d;
-  color:white;
-  font-size:16px;
-  margin:10px;
-}
+    /* Button */
+    button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 20px;
+      background: #ff4d6d;
+      color: white;
+      font-size: 16px;
+      margin: 10px;
+      cursor: pointer;
+    }
 
-/* Flash */
-.flash{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:white;
-  top:0;
-  left:0;
-  opacity:0;
-  transition:0.3s;
-  z-index:10;
-}
-</style>
+    /* Flash */
+    .flash {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: white;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: 0.3s;
+      z-index: 10;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="bg"></div>
-<div class="overlay"></div>
-<div class="flash" id="flash"></div>
+  <div class="bg"></div>
+  <div class="overlay"></div>
+  <div class="flash" id="flash"></div>
 
-<!-- BINTANG -->
-<script>
-for(let i=0;i<25;i++){
-  let s=document.createElement("div");
-  s.className="star";
-  s.style.left=Math.random()*100+"%";
-  s.style.animationDelay=Math.random()*2+"s";
-  document.body.appendChild(s);
-}
-</script>
-
-<!-- PAGE 1 -->
-<div class="page active" id="page1">
-  <h1>haloooooo aishaaaaa hari ini kamu ultaaaahhhhh yeeeyyyyy 🎉</h1>
-  <button onclick="nextPage(2)">Lanjut</button>
-</div>
-
-<!-- PAGE 2 -->
-<div class="page" id="page2">
-  <h2>menurut kamu kamu cantik gaaaa 😏</h2>
-  <button onclick="nextPage(3)">yaa</button>
-  <button id="noBtn">ngga</button>
-</div>
-
-<!-- PAGE 3 -->
-<div class="page" id="page3">
-  <h3>💌 Ada surat buat kamu</h3>
-  <button onclick="openLetter()">BUKA!!!</button>
-  <p id="text"></p>
-  <button onclick="nextPage(4)">Lanjut</button>
-</div>
-
-<!-- PAGE 4 FOTO -->
-<div class="page" id="page4">
-  <h2>📸 Foto dulu yuk!</h2>
-  <button onclick="takePhoto()">FOTO</button>
-
-  <h3 id="afterText"></h3>
-
-  <img id="img1" src="foto1.jpg"
-  style="display:none; width:70%; max-width:300px; border-radius:20px; margin-top:15px;">
-
-  <button id="nextBtn" onclick="nextPage(5)" style="display:none;">Lanjut</button>
-</div>
-
-<!-- PAGE 5 -->
-<div class="page" id="page5">
-  <h2>
-  makasih ya aish udah jadi temen baikkkk 🥹<br>
-  walaupun kadang kadang cuekk 🥲<br>
-  tapi kamu tetep seru 😆💖<br>
-  semoga kita terus temenan yaaa
-  </h2>
-  <button onclick="nextPage(6)">Finish</button>
-</div>
-
-<!-- PAGE 6 -->
-<div class="page" id="page6">
-  <h1>maaf ya cuma bisa ngasih giniii 😭</h1>
-  <h2>intinya... HBDDDD AISHAAAA 🎉💖</h2>
-</div>
-
-<script>
-function nextPage(n){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page'+n).classList.add('active');
-}
-
-/* tombol ngga kabur */
-let noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mouseover",()=>{
-  noBtn.style.position="absolute";
-  noBtn.style.left=Math.random()*80+"%";
-  noBtn.style.top=Math.random()*80+"%";
-});
-
-/* surat ketik */
-function openLetter(){
-  let text="selamat ultah yaaaaa aishaaaa 🎉 semoga panjang umur, sehat selalu, makin cantik tiap hari 😆✨ semoga semua impian kamu tercapai 💖";
-  let i=0;
-  document.getElementById("text").innerHTML="";
-  function type(){
-    if(i<text.length){
-      document.getElementById("text").innerHTML+=text.charAt(i);
-      i++;
-      setTimeout(type,40);
+  <!-- Bintang -->
+  <script>
+    for(let i = 0; i < 25; i++) {
+      let s = document.createElement("div");
+      s.className = "star";
+      s.style.left = Math.random() * 100 + "%";
+      s.style.animationDelay = Math.random() * 2 + "s";
+      document.body.appendChild(s);
     }
-  }
-  type();
-}
+  </script>
 
-/* kamera FIX */
-function takePhoto(){
-  let flash=document.getElementById("flash");
-  flash.style.opacity=1;
+  <!-- PAGE 1 -->
+  <div class="page active" id="page1">
+    <h1>haloooooo aishaaaaa hari ini kamu ultaaaahhhhh yeeeyyyyy 🎉</h1>
+    <button id="btn1">Lanjut</button>
+  </div>
 
-  setTimeout(()=>{
-    flash.style.opacity=0;
+  <!-- PAGE 2 -->
+  <div class="page" id="page2">
+    <h2>menurut kamu kamu cantik gaaaa 😏</h2>
+    <button id="btn2">yaa</button>
+    <button id="noBtn">ngga</button>
+  </div>
 
-    document.getElementById("afterText").innerHTML="liat dehhh cantik kan 😆";
+  <!-- PAGE 3 -->
+  <div class="page" id="page3">
+    <h3>💌 Ada surat buat kamu</h3>
+    <button id="btn3">BUKA!!!</button>
+    <p id="text"></p>
+    <button id="btn4">Lanjut</button>
+  </div>
 
-    document.getElementById("img1").style.display="block";
-    document.getElementById("nextBtn").style.display="inline-block";
+  <!-- PAGE 4 FOTO -->
+  <div class="page" id="page4">
+    <h2>📸 Foto dulu yuk!</h2>
+    <button id="btnFoto">FOTO</button>
 
-  },400);
-}
-</script>
+    <h3 id="afterText"></h3>
+
+    <img id="img1" src="foto1.jpg" style="display:none; width:70%; max-width:300px; border-radius:20px; margin-top:15px;">
+
+    <button id="btn5" style="display:none;">Lanjut</button>
+  </div>
+
+  <!-- PAGE 5 -->
+  <div class="page" id="page5">
+    <h2>
+      makasih ya aish udah jadi temen baikkkk 🥹<br>
+      walaupun kadang kadang cuekk 🥲<br>
+      tapi kamu tetep seru 😆💖<br>
+      semoga kita terus temenan yaaa
+    </h2>
+    <button id="btn6">Finish</button>
+  </div>
+
+  <!-- PAGE 6 -->
+  <div class="page" id="page6">
+    <h1>maaf ya cuma bisa ngasih giniii 😭</h1>
+    <h2>intinya... HBDDDD AISHAAAA 🎉💖</h2>
+  </div>
+
+  <script>
+    function nextPage(n) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page' + n).classList.add('active');
+    }
+
+    /* Tombol-tombol */
+    document.getElementById("btn1").addEventListener("click", function() {
+      nextPage(2);
+    });
+
+    document.getElementById("btn2").addEventListener("click", function() {
+      nextPage(3);
+    });
+
+    document.getElementById("btn4").addEventListener("click", function() {
+      nextPage(4);
+    });
+
+    document.getElementById("btn5").addEventListener("click", function() {
+      nextPage(5);
+    });
+
+    document.getElementById("btn6").addEventListener("click", function() {
+      nextPage(6);
+    });
+
+    /* Tombol ngga kabur */
+    let noBtn = document.getElementById("noBtn");
+    noBtn.addEventListener("mouseover", () => {
+      noBtn.style.position = "absolute";
+      noBtn.style.left = Math.random() * 80 + "%";
+      noBtn.style.top = Math.random() * 80 + "%";
+    });
+
+    /* Surat ketik */
+    document.getElementById("btn3").addEventListener("click", function() {
+      let text = "selamat ultah yaaaaa aishaaaa 🎉 semoga panjang umur, sehat selalu, makin cantik tiap hari 😆✨ semoga semua impian kamu tercapai 💖";
+      let i = 0;
+      document.getElementById("text").innerHTML = "";
+      function type() {
+        if (i < text.length) {
+          document.getElementById("text").innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, 40);
+        }
+      }
+      type();
+    });
+
+    /* Kamera */
+    document.getElementById("btnFoto").addEventListener("click", function() {
+      let flash = document.getElementById("flash");
+      flash.style.opacity = 1;
+
+      setTimeout(() => {
+        flash.style.opacity = 0;
+        document.getElementById("afterText").innerHTML = "liat dehhh cantik kan 😆";
+        document.getElementById("img1").style.display = "block";
+        document.getElementById("btn5").style.display = "inline-block";
+      }, 400);
+    });
+  </script>
 
 </body>
 </html>
