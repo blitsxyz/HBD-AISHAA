@@ -93,23 +93,15 @@ button {
 <div class="overlay"></div>
 <div class="flash" id="flash"></div>
 
-<!-- Musik kecil -->
+<!-- Musik -->
 <audio id="music" loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
 </audio>
 
-<script>
-document.body.addEventListener("click",()=>{
-  let music=document.getElementById("music");
-  music.volume=0.2;
-  music.play();
-},{once:true});
-</script>
-
 <!-- PAGE 1 -->
 <div class="page active" id="page1">
   <h1>haloooooo aishaaaaa hari ini kamu ultaaaahhhhh yeeeyyyyy 🎉</h1>
-  <button onclick="nextPage(2)">Lanjut</button>
+  <button onclick="playMusic(); nextPage(2)">Lanjut</button>
 </div>
 
 <!-- PAGE 2 -->
@@ -162,6 +154,13 @@ document.body.addEventListener("click",()=>{
 function nextPage(n){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page'+n).classList.add('active');
+}
+
+/* MUSIK FIX */
+function playMusic(){
+  let music=document.getElementById("music");
+  music.volume=0.2;
+  music.play();
 }
 
 /* Tombol kabur */
