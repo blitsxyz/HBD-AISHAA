@@ -8,7 +8,7 @@
 <style>
 body {
   margin:0;
-  font-family: 'Poppins', sans-serif;
+  font-family: sans-serif;
   overflow:hidden;
   color:white;
   text-align:center;
@@ -28,7 +28,6 @@ body {
   width:100%;
   height:100%;
   background:rgba(0,0,0,0.4);
-  backdrop-filter: blur(3px);
   z-index:-1;
 }
 
@@ -37,18 +36,14 @@ body {
   position:absolute;
   width:100%;
   height:100%;
-  display:flex;
+  display:none;
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  opacity:0;
-  transform:translateY(40px);
-  transition:0.5s;
 }
 
 .active {
-  opacity:1;
-  transform:translateY(0);
+  display:flex;
 }
 
 /* Button */
@@ -59,17 +54,7 @@ button {
   background:#ff4d6d;
   color:white;
   font-size:16px;
-  cursor:pointer;
   margin:10px;
-}
-
-/* Surat */
-.letter {
-  width:80%;
-  background:white;
-  color:black;
-  padding:20px;
-  border-radius:15px;
 }
 
 /* Flash */
@@ -81,8 +66,8 @@ button {
   top:0;
   left:0;
   opacity:0;
-  transition:0.3s;
   z-index:10;
+  transition:0.3s;
 }
 </style>
 </head>
@@ -93,7 +78,6 @@ button {
 <div class="overlay"></div>
 <div class="flash" id="flash"></div>
 
-<!-- Musik -->
 <audio id="music" loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
 </audio>
@@ -101,47 +85,43 @@ button {
 <!-- PAGE 1 -->
 <div class="page active" id="page1">
   <h1>haloooooo aishaaaaa hari ini kamu ultaaaahhhhh yeeeyyyyy 🎉</h1>
-  <button onclick="playMusic(); nextPage(2)">Lanjut</button>
+  <button id="btn1">Lanjut</button>
 </div>
 
 <!-- PAGE 2 -->
 <div class="page" id="page2">
   <h2>menurut kamu kamu cantik gaaaa 😏</h2>
-  <button onclick="nextPage(3)">yaa</button>
+  <button id="btn2">yaa</button>
   <button id="noBtn">ngga</button>
 </div>
 
 <!-- PAGE 3 -->
 <div class="page" id="page3">
-  <div class="letter">
-    <h3>💌 Ada surat buat kamu</h3>
-    <button onclick="openLetter()">BUKA!!!</button>
-    <p id="text"></p>
-  </div>
-  <button onclick="nextPage(4)">Lanjut</button>
+  <h3>💌 Ada surat buat kamu</h3>
+  <button id="btn3">BUKA!!!</button>
+  <p id="text"></p>
+  <button id="btn4">Lanjut</button>
 </div>
 
-<!-- PAGE 4 FOTO -->
+<!-- PAGE 4 -->
 <div class="page" id="page4">
   <h2>📸 Foto dulu yuk!</h2>
-  <button onclick="takePhoto()">FOTO</button>
+  <button id="btnFoto">FOTO</button>
 
   <h3 id="afterText"></h3>
+  <img id="img1" src="foto1.jpg" style="display:none; width:70%; max-width:300px; border-radius:20px;">
 
-  <img id="img1" src="foto1.jpg" style="display:none; width:70%; max-width:300px; border-radius:20px; margin-top:15px;">
-
-  <button id="nextBtn" onclick="nextPage(5)" style="display:none;">Lanjut</button>
+  <button id="btn5" style="display:none;">Lanjut</button>
 </div>
 
 <!-- PAGE 5 -->
 <div class="page" id="page5">
   <h2>
-  makasih ya aish udah jadi temen baikkkk 🥹 <br>
-  walaupun kadang kadang cuekk 🥲 <br>
-  tapi gapapa karena kamu tetep orang yang seru 😆 <br>
-  semoga kita bisa terus temenan yaaa 💖
+  makasih ya aish udah jadi temen baikkkk 🥹<br>
+  walaupun kadang kadang cuekk 🥲<br>
+  tapi kamu tetep seru 😆💖
   </h2>
-  <button onclick="nextPage(6)">Finish</button>
+  <button id="btn6">Finish</button>
 </div>
 
 <!-- PAGE 6 -->
@@ -156,14 +136,21 @@ function nextPage(n){
   document.getElementById('page'+n).classList.add('active');
 }
 
-/* MUSIK FIX */
-function playMusic(){
-  let music=document.getElementById("music");
-  music.volume=0.2;
-  music.play();
-}
+/* MUSIK */
+let music = document.getElementById("music");
 
-/* Tombol kabur */
+document.getElementById("btn1").addEventListener("click", function(){
+  music.volume = 0.2;
+  music.play();
+  nextPage(2);
+});
+
+document.getElementById("btn2").onclick = ()=> nextPage(3);
+document.getElementById("btn4").onclick = ()=> nextPage(4);
+document.getElementById("btn5").onclick = ()=> nextPage(5);
+document.getElementById("btn6").onclick = ()=> nextPage(6);
+
+/* tombol ngga kabur */
 let noBtn=document.getElementById("noBtn");
 noBtn.addEventListener("mouseover",()=>{
   noBtn.style.position="absolute";
@@ -171,9 +158,9 @@ noBtn.addEventListener("mouseover",()=>{
   noBtn.style.top=Math.random()*80+"%";
 });
 
-/* Surat ketik */
-function openLetter(){
-  let text="selamat ultah yaaaaa aishaaaa 🎉 semoga panjang umur, sehat selalu, makin cantik tiap hari 😆✨ semoga semua impian kamu tercapai dan selalu bahagia yaaa 💖";
+/* surat */
+document.getElementById("btn3").onclick = function(){
+  let text="selamat ultah yaaaaa aishaaaa 🎉 semoga panjang umur, sehat selalu, makin cantik tiap hari 😆✨";
   let i=0;
   document.getElementById("text").innerHTML="";
   function type(){
@@ -186,8 +173,8 @@ function openLetter(){
   type();
 }
 
-/* Kamera FIX */
-function takePhoto(){
+/* kamera */
+document.getElementById("btnFoto").onclick = function(){
   let flash=document.getElementById("flash");
   flash.style.opacity=1;
 
@@ -199,10 +186,8 @@ function takePhoto(){
 
     document.getElementById("afterText").innerHTML="liat dehhh cantik kan 😆";
 
-    let img=document.getElementById("img1");
-    img.style.display="block";
-
-    document.getElementById("nextBtn").style.display="inline-block";
+    document.getElementById("img1").style.display="block";
+    document.getElementById("btn5").style.display="inline-block";
 
   },500);
 }
